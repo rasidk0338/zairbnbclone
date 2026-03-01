@@ -1,0 +1,107 @@
+<%- include('../partials/head') %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+  <body class="bg-neutral-light min-h-screen">
+    <%- include('../partials/nav') %>
+    <main class="container mx-auto mt-12 mb-12 max-w-2xl">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
+        <h1 class="text-3xl font-bold mb-2 text-center text-rose-500">Create an account</h1>
+        <p class="text-gray-500 text-center mb-8">Join us today to start your journey</p>
+        
+        <form action="/signup" method="POST">
+          <%- include('../partials/errors') %>
+          
+          <div class="mb-5">
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                <i class="fas fa-user"></i>
+              </span>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                value="<%= oldInput.name ? oldInput.name : '' %>"
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                required />
+            </div>
+          </div>
+          
+          <div class="mb-5">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value="<%= oldInput.email ? oldInput.email : '' %>"
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                required />
+            </div>
+          </div>
+          
+          <div class="mb-5">
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                <i class="fas fa-lock"></i>
+              </span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                value=""
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                required />
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                <i class="fas fa-lock"></i>
+              </span>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value=""
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                required />
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <label for="userType" class="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
+            <select
+              name="userType"
+              id="userType"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+              required>
+              <option value="">Choose an account type</option>
+              <option value="guest" <%= oldInput.userType === 'guest' ? 'selected' : '' %>>Guest</option>
+              <option value="host" <%= oldInput.userType === 'host' ? 'selected' : '' %>>Host</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="w-full bg-rose-500 text-white py-3 rounded-lg hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium transition duration-300 flex items-center justify-center">
+            <span>Sign up</span>
+          </button>
+          
+          <p class="text-center mt-6 text-gray-600">
+            Already have an account? <a href="/login" class="text-rose-500 hover:underline font-medium">Log in</a>
+          </p>
+        </form>
+      </div>
+    </main>
+    <%- include("../partials/footer") %>
+  </body>
+</html>

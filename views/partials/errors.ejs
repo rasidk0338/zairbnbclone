@@ -1,0 +1,18 @@
+ <% if (errors && errors.length > 0) { %>
+  <div id="errorBox" class="relative mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+
+    <!-- Close Button -->
+    <button 
+      type="button"
+      onclick="document.getElementById('errorBox').style.display='none'"
+      class="absolute top-2 right-3 text-red-700 font-bold text-lg">
+      &times;
+    </button>
+
+    <ul class="pr-6">
+      <% errors.forEach(function(error) { %>
+        <li><%= error %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>

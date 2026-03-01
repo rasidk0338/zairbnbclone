@@ -1,0 +1,56 @@
+<%- include('../partials/head') %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+  <body>
+    <%- include('../partials/nav') %>
+    <main class="container mx-auto bg-white py-8 max-w-7xl">
+      <h2 class="text-3xl text-rose-500 font-bold text-center mb-6">
+        Hey Host Here Your Home:
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4">
+        <% registerHomes.forEach(home => { %>
+          <div class="flex flex-col group">
+            <div class="relative overflow-hidden rounded-xl mb-3">
+              <img 
+                src="<%= home.photo%>" 
+                alt="<%= home.houseName %>" 
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+              <!-- <button class="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-colors">
+                <i class="far fa-heart fa-lg"></i>
+              </button> -->
+            </div>
+            <div class="flex flex-col flex-grow">
+              <div class="flex justify-between items-start mb-1">
+                <h3 class="text-lg font-semibold text-gray-900 truncate max-w-[70%]"><%=home.houseName%></h3>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-sm text-gray-500 mr-1"></i>
+                  <span class="text-sm text-gray-500"><%= home.rating %></span>
+                </div>
+              </div>
+              <p class="text-gray-500 text-sm mb-2 truncate"><%= home.location %></p>
+              <p class="text-gray-700 text-sm mb-3 line-clamp-2"><%= home.descriptions %></p>
+              <div class="mt-auto pt-2 border-t border-gray-100">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-bold text-gray-900">Rs <%= home.price %></span>
+                  <span class="text-gray-500 text-sm">/ night</span>
+                </div>
+                <div class="flex gap-2 mt-3">
+                  <a class="flex-1 bg-gray-900 text-white py-2 px-4 rounded-lg text-center hover:bg-gray-700 transition-colors text-sm font-medium" href="/host/edit-home/<%=home._id%>?editing=true">Edit</a>
+                   <form action="/host/delete-home/<%= home._id %>" method="POST">
+                      <button type="submit" class="flex-1 bg-rose-500 text-white py-2 px-4 rounded-lg hover:bg-rose-600 transition-colors text-sm font-medium">Delete</button>
+                   </form>   
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </main>
+    <%- include("../partials/footer") %>
+  </body>
+</html>
+
+
+
+
+

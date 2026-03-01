@@ -1,0 +1,62 @@
+<%- include('../partials/head') %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+  <body>
+    <%- include('../partials/nav') %>
+    <main class="container mx-auto bg-white py-8 max-w-4xl">
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Image Section -->
+        <div class="relative">
+          <img 
+            src="<%= home.photo%>" 
+            alt="<%= home.houseName %>" 
+            class="w-full h-96 object-cover">
+          <!-- <button class="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors">
+            <i class="far fa-heart fa-xl"></i>
+          </button> -->
+        </div>
+        
+        <!-- Content Section -->
+        <div class="p-6">
+          <!-- Title and Rating -->
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= home.houseName %></h1>
+              <div class="flex items-center mb-2">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="text-gray-600 font-medium"><%= home.rating %> · <%= home.location %></span>
+              </div>
+            </div>
+            
+            <!-- Host Edit/Delete buttons (currently shown to all users, but should be restricted to hosts in a real app) -->
+            
+          </div>
+          
+          <!-- Divider -->
+          <div class="border-t border-gray-200 my-6"></div>
+          
+          <!-- Description -->
+          <div class="mb-8">
+            <p class="text-gray-700 text-lg mb-4"><%= home.descriptions %></p>
+          </div>
+          
+          <!-- Price and Booking Section -->
+          <div class="border-t border-gray-200 pt-6">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <span class="text-2xl font-bold text-gray-900">Rs <%= home.price %></span>
+                <span class="text-gray-600">/ night</span>
+              </div>
+              
+              <!-- Book Button -->
+              <button class="bg-rose-500 hover:bg-rose-600 text-white py-3 px-8 rounded-lg text-lg font-semibold transition-colors">
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include("../partials/footer") %>
+  </body>
+</html>
