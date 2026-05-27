@@ -8,8 +8,7 @@ exports.getSignup = (req, res) => {
     isLoggedIn: false,
     errors: [],
     oldInput: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       userType: "",
     },
@@ -17,16 +16,12 @@ exports.getSignup = (req, res) => {
   });
 };
 exports.postSignup = [
-  check("firstName")
+  check("name")
     .trim()
     .isLength({ min: 2 })
-    .withMessage("first name should be atleast 2 character long")
+    .withMessage("Name should be atleast 2 character long")
     .matches(/^[A-Za-z\s]+$/)
-    .withMessage("first name should contain only alphabets"),
-
-  check("lastName")
-    .matches(/^[A-Za-z\s]+$/)
-    .withMessage("first name should contain only alphabets"),
+    .withMessage("Name should contain only alphabets"),
 
   check("email")
     .isEmail()
@@ -60,18 +55,8 @@ exports.postSignup = [
     .isIn(["guest", "host"])
     .withMessage("Invalid user types"),
 
-  check("terms")
-    .notEmpty()
-    .withMessage("please accept the terms and condition")
-    .custom((value, { req }) => {
-      if (value !== "on") {
-        throw new Error("Please accept the terms and condition");
-      }
-      return true;
-    }),
-
   (req, res, next) => {
-    const { firstName, lastName, email, password, userType } = req.body;
+    const { name, email, password, userType } = req.body;
     console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -79,7 +64,7 @@ exports.postSignup = [
         pageTitle: "Signup",
         isLoggedIn: false,
         errors: errors.array().map((err) => err.msg),
-        oldInput: { firstName, lastName, email, password, userType },
+        oldInput: { name, email, password, userType },
         user: {},
       });
     }
@@ -87,6 +72,10 @@ exports.postSignup = [
     bcrypt
       .hash(password, 12)
       .then((hashedPassword) => {
+        const nameParts = name.trim().split(" ");
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(" ") || "";
+
         const user = new User({
           firstName: firstName,
           lastName: lastName,
@@ -104,7 +93,8 @@ exports.postSignup = [
           pageTitle: "Signup",
           isLoggedIn: false,
           errors: [err.message],
-          oldInput: { firstName, lastName, email, password, userType },
+          oldInput: { name, email, password, userType },
+          user: {},
         });
       });
   },

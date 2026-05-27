@@ -55,7 +55,7 @@ exports.postAddHome = async (req, res) => {
   await home
     .save()
     .then((result) => {
-      console.log("HOME SAVED Successfully!");
+      // console.log("HOME SAVED Successfully!");
       res.redirect("/host-home-list");
     })
     .catch((err) => {
@@ -70,7 +70,7 @@ exports.getEditHome = (req, res, next) => {
 
   Home.findById(homeId).then((home) => {
     if (!home) {
-      console.log("Home not found for editing.");
+      // console.log("Home not found for editing.");
       return res.redirect("/host-add-home");
     }
 
@@ -87,7 +87,7 @@ exports.getEditHome = (req, res, next) => {
 
 exports.postEditHome = async (req, res) => {
   const { _id, houseName, price, location, rating, descriptions } = req.body;
-  console.log("BODY DATA:", req.body);
+  // console.log("BODY DATA:", req.body);
 
   try {
     const home = await Home.findById(_id);
@@ -98,13 +98,13 @@ exports.postEditHome = async (req, res) => {
     home.descriptions = descriptions;
     home.rating = rating;
 
-    console.log("FILE DATA:", req.file);
+    // console.log("FILE DATA:", req.file);
 
     if (req.file) {
       // Delete old image from Cloudinary using stored public_id
       if (home.cloudinary_id) {
         await cloudinary.uploader.destroy(home.cloudinary_id);
-        console.log("Old image deleted");
+        // console.log("Old image deleted");
       }
 
       // Upload new image to Cloudinary
@@ -122,7 +122,7 @@ exports.postEditHome = async (req, res) => {
     }
 
     await home.save();
-    console.log("Home Updated Successfully");
+    // console.log("Home Updated Successfully");
 
     res.redirect("/host-home-list");
   } catch (err) {

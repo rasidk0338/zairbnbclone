@@ -85,7 +85,7 @@ app.use(express.static(path.join(rootDir, "public")));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "coding secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
